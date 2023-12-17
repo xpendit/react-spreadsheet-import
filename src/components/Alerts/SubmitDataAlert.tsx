@@ -27,11 +27,11 @@ export const SubmitDataAlert = ({ isOpen, onClose, onConfirm }: Props) => {
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {translations.alerts.submitIncomplete.headerTitle}
           </AlertDialogHeader>
-          <AlertDialogBody textAlign={"center"}>
+          <div style={{ padding: 24, paddingTop: 8, paddingBottom: 8, textAlign: 'center' }}>
             {allowInvalidSubmit
               ? translations.alerts.submitIncomplete.bodyText
               : translations.alerts.submitIncomplete.bodyTextSubmitForbidden}
-          </AlertDialogBody>
+          </div>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose} variant="secondary">
               {translations.alerts.submitIncomplete.cancelButtonTitle}
