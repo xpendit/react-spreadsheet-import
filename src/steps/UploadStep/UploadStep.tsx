@@ -49,7 +49,7 @@ export const UploadStep = ({ onContinue }: UploadProps) => {
           <Text sx={styles.subtitle}>{translations.uploadStep.manifestDescription}</Text>
         </Box>
         <Box display="flex" flexDirection="column" justifyContent="flex-end">
-          <Button sx={styles.subtitle} variant="outline" size="sm" onClick={downloadCSV}>
+          <Button sx={styles.downloadTemplateButton} variant="outline" size="sm" onClick={downloadCSV}>
             {translations.uploadStep.downloadCSVButtonTitle}
           </Button>
         </Box>
