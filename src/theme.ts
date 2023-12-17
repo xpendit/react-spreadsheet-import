@@ -110,6 +110,9 @@ export const themeOverrides = {
           color: "subtitleColor",
           mb: "1rem",
         },
+        downloadTemplateButton: {
+          mb: "1rem",
+        },
         tableWrapper: {
           mb: "0.5rem",
           position: "relative",
