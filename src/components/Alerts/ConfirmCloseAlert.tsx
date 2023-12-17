@@ -27,7 +27,7 @@ export const ConfirmCloseAlert = ({ isOpen, onClose, onConfirm }: Props) => {
           <AlertDialogHeader>
             {translations.alerts.confirmClose.headerTitle}
           </AlertDialogHeader>
-          <AlertDialogBody textAlign={"center"}>
+          <AlertDialogBody style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
             {translations.alerts.confirmClose.bodyText}
             </AlertDialogBody>
           <AlertDialogFooter>
