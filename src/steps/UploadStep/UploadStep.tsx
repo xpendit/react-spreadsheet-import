@@ -1,5 +1,5 @@
 import type XLSX from "xlsx-ugnis"
-import { Box, Heading, ModalBody, Text, useStyleConfig } from "@chakra-ui/react"
+import { Box, Heading, ModalBody, Text, Button, useStyleConfig } from "@chakra-ui/react"
 import { DropZone } from "./components/DropZone"
 import { useRsi } from "../../hooks/useRsi"
 import { ExampleTable } from "./components/ExampleTable"
@@ -12,22 +12,49 @@ type UploadProps = {
 }
 
 export const UploadStep = ({ onContinue }: UploadProps) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const styles = useStyleConfig("UploadStep") as (typeof themeOverrides)["components"]["UploadStep"]["baseStyle"]
-  const { translations, fields } = useRsi()
+  const [isLoading, setIsLoading] = useState(false);
+  const styles = useStyleConfig("UploadStep") as (typeof themeOverrides)["components"]["UploadStep"]["baseStyle"];
+  const { translations, fields } = useRsi();
   const handleOnContinue = useCallback(
     async (data: XLSX.WorkBook, file: File) => {
-      setIsLoading(true)
-      await onContinue(data, file)
-      setIsLoading(false)
+      setIsLoading(true);
+      await onContinue(data, file);
+      setIsLoading(false);
     },
     [onContinue],
-  )
+  );
+
+  const downloadCSV = () => {
+    const csvContent = "data:text/csv;charset=utf-8," +
+      fields.map(field => field.label).join(',') + "\n";
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", translations.uploadStep.csvFileName);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   return (
     <ModalBody>
       <Heading sx={styles.heading}>{translations.uploadStep.title}</Heading>
-      <Text sx={styles.title}>{translations.uploadStep.manifestTitle}</Text>
-      <Text sx={styles.subtitle}>{translations.uploadStep.manifestDescription}</Text>
+
+      <Box display="flex" gap="16px" justifyContent={"space-between"}>
+        <div>
+          <Text sx={styles.title}>{translations.uploadStep.manifestTitle}</Text>
+          <Text sx={styles.subtitle}>{translations.uploadStep.manifestDescription}</Text>
+        </div>
+        <div>
+          <Button variant="outline" size="sm" onClick={downloadCSV}>
+            {translations.uploadStep.downloadCSVButtonTitle}
+          </Button>
+        </div>
+      </Box>
+
       <Box sx={styles.tableWrapper}>
         <ExampleTable fields={fields} />
         <FadingOverlay />
