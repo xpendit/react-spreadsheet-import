@@ -27,7 +27,7 @@ export const SubmitDataAlert = ({ isOpen, onClose, onConfirm }: Props) => {
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             {translations.alerts.submitIncomplete.headerTitle}
           </AlertDialogHeader>
-          <AlertDialogBody>
+          <AlertDialogBody textAlign={"center"}>
             {allowInvalidSubmit
               ? translations.alerts.submitIncomplete.bodyText
               : translations.alerts.submitIncomplete.bodyTextSubmitForbidden}
