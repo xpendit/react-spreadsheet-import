@@ -43,16 +43,16 @@ export const UploadStep = ({ onContinue }: UploadProps) => {
     <ModalBody>
       <Heading sx={styles.heading}>{translations.uploadStep.title}</Heading>
 
-      <Box display="flex" gap="16px" justifyContent={"space-between"}>
-        <div>
+      <Box display="flex" gap="16px" justifyContent="space-between">
+        <Box>
           <Text sx={styles.title}>{translations.uploadStep.manifestTitle}</Text>
           <Text sx={styles.subtitle}>{translations.uploadStep.manifestDescription}</Text>
-        </div>
-        <div>
+        </Box>
+        <Box display="flex" flexDirection="column" justifyContent="flex-end">
           <Button variant="outline" size="sm" onClick={downloadCSV}>
             {translations.uploadStep.downloadCSVButtonTitle}
           </Button>
-        </div>
+        </Box>
       </Box>
 
       <Box sx={styles.tableWrapper}>
