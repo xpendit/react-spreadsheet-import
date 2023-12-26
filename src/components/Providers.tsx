@@ -5,6 +5,7 @@ import type { CustomTheme } from "../theme"
 
 export const RsiContext = createContext({} as any)
 
+
 type ProvidersProps<T extends string> = {
   children: React.ReactNode
   theme: CustomTheme
@@ -14,7 +15,9 @@ type ProvidersProps<T extends string> = {
 export const rootId = "chakra-modal-rsi"
 
 export const Providers = <T extends string>({ children, theme, rsiValues }: ProvidersProps<T>) => {
-  const mergedTheme = extendTheme(theme)
+  const mergedTheme = extendTheme(theme);
+  console.log(mergedTheme);
+  delete mergedTheme.styles.global;
 
   if (!rsiValues.fields) {
     throw new Error("Fields must be provided to react-spreadsheet-import")
@@ -23,8 +26,8 @@ export const Providers = <T extends string>({ children, theme, rsiValues }: Prov
   return (
     <RsiContext.Provider value={rsiValues}>
       {/* cssVarsRoot used to override RSI defaultTheme but not the rest of chakra defaultTheme */}
-      <ChakraProvider cssVarsRoot={`#${rootId}`} theme={mergedTheme} resetCSS={false}>
-          {children}
+      <ChakraProvider theme={mergedTheme} cssVarsRoot={`#${rootId}`} resetCSS={false}>
+        {children}
       </ChakraProvider>
     </RsiContext.Provider>
   )

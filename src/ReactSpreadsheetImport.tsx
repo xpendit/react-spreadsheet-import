@@ -7,7 +7,7 @@ import type { RsiProps } from "./types"
 import { ModalWrapper } from "./components/ModalWrapper"
 import { translations } from "./translationsRSIProps"
 
-export const defaultTheme = themeOverrides
+export const defaultTheme = themeOverrides;
 
 export const defaultRSIProps: Partial<RsiProps<any>> = {
   autoMapHeaders: true,
