@@ -16,7 +16,6 @@ export const rootId = "chakra-modal-rsi"
 
 export const Providers = <T extends string>({ children, theme, rsiValues }: ProvidersProps<T>) => {
   const mergedTheme = extendTheme(theme);
-  console.log(mergedTheme.styles.global);
   delete mergedTheme.styles.global.body;
 
   if (!rsiValues.fields) {
