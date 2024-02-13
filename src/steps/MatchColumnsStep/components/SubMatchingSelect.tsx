@@ -17,7 +17,10 @@ export const SubMatchingSelect = <T extends string>({ option, column, onSubChang
   const options = getFieldOptions(fields, column.value)
   console.log("options", options)
   console.log("option", option)
-  const value = options.find((opt) => opt.value == option.value)
+
+  const value = options.find((o) => o.value === option.value)
+
+
 
   return (
     <Box pl={2} pb="0.375rem">
