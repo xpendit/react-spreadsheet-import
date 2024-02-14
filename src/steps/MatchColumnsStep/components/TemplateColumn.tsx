@@ -20,11 +20,9 @@ import { SubMatchingSelect } from "./SubMatchingSelect"
 import type { Styles } from "./ColumnGrid"
 
 const getAccordionTitle = <T extends string>(fields: Fields<T>, column: Column<T>, translations: Translations) => {
-  console.log("fields", fields)
-  console.log("column", column)
   const fieldLabel = fields.find((field) => "value" in column && field.key === column.value)!.label
   return `${translations.matchColumnsStep.matchDropdownTitle} ${fieldLabel} (${
-    "matchedOptions" in column && column.matchedOptions.filter((option) => !option.value).length
+    "matchedOptions" in column && column.matchedOptions.filter((option) => !option.entry).length
   } ${translations.matchColumnsStep.unmatched})`
 }
 
