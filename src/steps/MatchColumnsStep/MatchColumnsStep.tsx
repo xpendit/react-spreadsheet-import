@@ -162,20 +162,18 @@ export const MatchColumnsStep = <T extends string>({
 
   useEffect(() => {
     () => {
-      const {translations, fields} = useRsi<T>()
+      console.log('columns', columns)
       columns.map((column) => {
         if (column.type === ColumnType.matchedSelect) {
           const options = getFieldOptions(fields, column.value)
-          column.matchedOptions.map((co) => {
-            const value = options.find((o) => o.value === co.entry)
-            onSubChange(value?.value as T, column.index, co.entry!)
-          })
+          const value = options.find((o) => o.value === column.matchedOptions[0].entry)
+          onSubChange(value?.value as T, column.index, column.matchedOptions[0].entry!)
         }
-       })
+      })
     }},
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
-    )
+  )
 
   useEffect(
     () => {
