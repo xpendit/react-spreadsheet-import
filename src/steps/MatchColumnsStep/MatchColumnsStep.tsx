@@ -161,10 +161,14 @@ export const MatchColumnsStep = <T extends string>({
 
   useEffect(() => {
     () => {
+      const {translations, fields} = useRsi<T>()
       columns.map((column) => {
         if (column.type === ColumnType.matchedSelect) {
           const options = getFieldOptions(fields, column.value)
-          onSubChange(options[0].value, column.index, column.header)
+          column.matchedOptions.map((co) => {
+            const value = options.find((o) => o.value === co.entry)
+            onSubChange(value?.value as T, column.index, co.entry!)
+          })
         }
        })
     }}, [columns, fields])
