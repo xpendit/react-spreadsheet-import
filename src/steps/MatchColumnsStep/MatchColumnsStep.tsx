@@ -163,8 +163,7 @@ export const MatchColumnsStep = <T extends string>({
     () => {
       columns.map((column) => {
         if (column.type === ColumnType.matchedSelect) {
-          const field = fields.find((field) => field.key === column.value) as unknown as Field<T>
-          const options = getFieldOptions(field, column.value)
+          const options = getFieldOptions(fields, column.value)
           onSubChange(options[0].value, column.index, column.header)
         }
        })
