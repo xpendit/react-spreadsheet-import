@@ -132,6 +132,7 @@ export const MatchColumnsStep = <T extends string>({
 
   const onSubChange = useCallback(
     (value: string, columnIndex: number, entry: string) => {
+      console.log('onSubChange', value, columnIndex, entry)
       setColumns(
         columns.map((column, index) =>
           columnIndex === index && "matchedOptions" in column ? setSubColumn(column, entry, value) : column,
