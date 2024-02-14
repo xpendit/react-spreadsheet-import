@@ -139,6 +139,7 @@ export const MatchColumnsStep = <T extends string>({
     },
     [columns, setColumns],
   )
+  console.log(fields, columns)
   const unmatchedRequiredFields = useMemo(() => findUnmatchedRequiredFields(fields, columns), [fields, columns])
 
   const handleOnContinue = useCallback(async () => {
