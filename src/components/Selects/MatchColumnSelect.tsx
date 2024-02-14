@@ -13,8 +13,6 @@ interface Props {
 
 export const MatchColumnSelect = ({ onChange, value, options, placeholder, name }: Props) => {
   const styles = useStyleConfig("MatchColumnsStep") as Styles
-  console.log(value)
-  console.log(options)
   return (
     <Select<SelectOption, false>
       value={value || null}
