@@ -165,21 +165,7 @@ export const MatchColumnsStep = <T extends string>({
         if (column.type === ColumnType.matchedSelect) {
           const field = fields.find((field) => field.key === column.value) as unknown as Field<T>
           const options = getFieldOptions(field, column.value)
-          const newOptions = column.matchedOptions.map((option) => {
-            const newOption = options.find((o) => o.value === option.entry)
-            if (newOption) {
-              return { ...option, value: newOption.value }
-            }
-            return option
-          })
-          setColumns(
-            columns.map((col) => {
-              if (col.type === ColumnType.matchedSelect) {
-                return { ...col, matchedOptions: newOptions }
-              }
-              return col
-            }),
-          )
+          onSubChange(options[0].value, column.index, column.header)
         }
        })
     }}, [columns, fields])
