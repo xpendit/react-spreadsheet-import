@@ -60,8 +60,8 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
                 name={column.header}
               />
             </Box>
-            {column.type !== ColumnType.matchedSelectOptions &&
-            <MatchIcon isChecked={isChecked} />}
+            {
+            <MatchIcon isChecked={column.type === ColumnType.matchedSelectOptions ? true  : isChecked} />}
           </Flex>
           {false && (
             <Flex width="100%">
