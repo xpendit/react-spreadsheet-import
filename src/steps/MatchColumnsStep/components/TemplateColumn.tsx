@@ -18,6 +18,7 @@ import type { Translations } from "../../../translationsRSIProps"
 import { MatchColumnSelect } from "../../../components/Selects/MatchColumnSelect"
 import { SubMatchingSelect } from "./SubMatchingSelect"
 import type { Styles } from "./ColumnGrid"
+import { setSubColumn } from '../utils/setSubColumn'
 
 const getAccordionTitle = <T extends string>(fields: Fields<T>, column: Column<T>, translations: Translations) => {
   const fieldLabel = fields.find((field) => "value" in column && field.key === column.value)!.label
@@ -42,10 +43,10 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
     column.type === ColumnType.matchedSelectOptions
   if ("matchedOptions" in column) {
     column.matchedOptions = column.matchedOptions.map((option) => {
-      const field = fields.find((f) => f.key === option.entry)
-      if (field) {
-        return { ...option, label: field.label }
-      }
+      if (!option.value) return option
+      if(!option.entry) return option
+      console.log('option.entry', option)
+      setSubColumn(column, option.entry, fields)
       return option
     })
   }
