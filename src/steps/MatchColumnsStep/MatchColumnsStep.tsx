@@ -171,7 +171,10 @@ export const MatchColumnsStep = <T extends string>({
           })
         }
        })
-    }}, [columns, fields])
+    }},
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+    )
 
   useEffect(
     () => {
