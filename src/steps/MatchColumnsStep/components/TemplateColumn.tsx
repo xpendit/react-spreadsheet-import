@@ -62,7 +62,7 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
             </Box>
             <MatchIcon isChecked={isChecked} />
           </Flex>
-          {/* {isSelect && (
+          {isSelect && (
             <Flex width="100%">
               <Accordion allowMultiple width="100%">
                 <AccordionItem border="none" py={1}>
@@ -88,7 +88,7 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
                 </AccordionItem>
               </Accordion>
             </Flex>
-          )} */}
+          )}
         </>
       )}
     </Flex>
