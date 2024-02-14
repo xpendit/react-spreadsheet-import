@@ -170,12 +170,12 @@ export const MatchColumnsStep = <T extends string>({
 
   return (
     <>
-      {/* <UnmatchedFieldsAlert
+      <UnmatchedFieldsAlert
         isOpen={showUnmatchedFieldsAlert}
         onClose={() => setShowUnmatchedFieldsAlert(false)}
         fields={unmatchedRequiredFields}
         onConfirm={handleAlertOnContinue}
-      /> */}
+      />
       <ColumnGrid
         columns={columns}
         onContinue={handleOnContinue}
