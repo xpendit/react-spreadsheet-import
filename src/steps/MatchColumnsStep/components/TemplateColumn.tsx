@@ -47,7 +47,7 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
       if(!option.entry) return option
       console.log('option.entry', option)
       setSubColumn(column, option.entry, fields)
-      return option
+      return {...option, value: fields.find((field) => field.key === option.value)?.value}
     })
   }
   const isSelect = "matchedOptions" in column
