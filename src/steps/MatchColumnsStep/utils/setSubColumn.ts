@@ -4,6 +4,7 @@ export const setSubColumn = <T>(
   entry: string,
   value: string,
 ): MatchedSelectColumn<T> | MatchedSelectOptionsColumn<T> => {
+  console.log(oldColumn)
   const options = oldColumn.matchedOptions.map((option) => (option.entry === entry ? { ...option, value } : option))
   const allMathced = options.every(({ value }) => !!value)
   if (allMathced) {
