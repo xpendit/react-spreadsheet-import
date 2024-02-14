@@ -12,6 +12,7 @@ import type { Field, RawData } from "../../types"
 import { getMatchedColumns } from "./utils/getMatchedColumns"
 import { UnmatchedFieldsAlert } from "../../components/Alerts/UnmatchedFieldsAlert"
 import { findUnmatchedRequiredFields } from "./utils/findUnmatchedRequiredFields"
+import { getFieldOptions } from './utils/getFieldOptions'
 
 export type MatchColumnsProps<T extends string> = {
   data: RawData[]
@@ -139,7 +140,6 @@ export const MatchColumnsStep = <T extends string>({
     },
     [columns, setColumns],
   )
-  console.log(fields, columns)
   const unmatchedRequiredFields = useMemo(() => findUnmatchedRequiredFields(fields, columns), [fields, columns])
 
   const handleOnContinue = useCallback(async () => {
@@ -168,6 +168,19 @@ export const MatchColumnsStep = <T extends string>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
+  useEffect(
+    () => {
+      console.log('columns', columns)
+      columns.map((column) => {
+        if (column.type === ColumnType.matchedSelect) {
+          const options = getFieldOptions(fields, column.value)
+          const value = options.find((o) => o.value === column.matchedOptions[0].entry)
+          onSubChange(value?.value as T, column.index, column.matchedOptions[0].entry!)
+        }
+      })
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
 
   return (
     <>

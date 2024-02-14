@@ -22,7 +22,7 @@ import type { Styles } from "./ColumnGrid"
 const getAccordionTitle = <T extends string>(fields: Fields<T>, column: Column<T>, translations: Translations) => {
   const fieldLabel = fields.find((field) => "value" in column && field.key === column.value)!.label
   return `${translations.matchColumnsStep.matchDropdownTitle} ${fieldLabel} (${
-    "matchedOptions" in column && column.matchedOptions.filter((option) => !option.entry).length
+    "matchedOptions" in column && column.matchedOptions.filter((option) => !option.value).length
   } ${translations.matchColumnsStep.unmatched})`
 }
 
@@ -38,11 +38,12 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
   const isIgnored = column.type === ColumnType.ignored
   const isChecked =
     column.type === ColumnType.matched ||
-    column.type === ColumnType.matchedCheckbox
+    column.type === ColumnType.matchedCheckbox ||
     column.type === ColumnType.matchedSelectOptions
   const isSelect = "matchedOptions" in column
   const selectOptions = fields.map(({ label, key }) => ({ value: key, label }))
   const selectValue = selectOptions.find(({ value }) => "value" in column && column.value === value)
+
   return (
     <Flex minH={10} w="100%" flexDir="column" justifyContent="center">
       {isIgnored ? (
