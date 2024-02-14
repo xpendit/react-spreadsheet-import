@@ -29,11 +29,9 @@ export const normalizeTableData = <T extends string>(columns: Columns<T>, data: 
         case ColumnType.matchedSelectOptions: {
           console.log("column", column)
           console.log("curr", curr)
-          if(column.matchedOptions[0].entry) {
           acc[column.value] = column.matchedOptions[0].entry
-        }
-          column.matchedOptions.shift()
-          // const matchedOption = column.matchedOptions.find(({ entry, value }) => entry === curr)
+          const matchedOption = column.matchedOptions.find(({ entry, value }) => entry === curr)
+          console.log("matchedOption", matchedOption)
           // acc[column.value] = matchedOption?.value || undefined
           return acc
         }
