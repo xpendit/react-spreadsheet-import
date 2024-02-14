@@ -20,7 +20,8 @@ import { SubMatchingSelect } from "./SubMatchingSelect"
 import type { Styles } from "./ColumnGrid"
 
 const getAccordionTitle = <T extends string>(fields: Fields<T>, column: Column<T>, translations: Translations) => {
-
+  console.log("fields", fields)
+  console.log("column", column)
   const fieldLabel = fields.find((field) => "value" in column && field.key === column.value)!.label
   return `${translations.matchColumnsStep.matchDropdownTitle} ${fieldLabel} (${
     "matchedOptions" in column && column.matchedOptions.filter((option) => !option.value).length
@@ -43,11 +44,7 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
     column.type === ColumnType.matchedSelectOptions
   const isSelect = "matchedOptions" in column
   const selectOptions = fields.map(({ label, key }) => ({ value: key, label }))
-  console.log("fields", fields)
-  console.log("selectOptions", selectOptions)
-  console.log("column", column)
   const selectValue = selectOptions.find(({ value }) => "value" in column && column.value === value)
-  console.log("selectValue", selectValue)
   return (
     <Flex minH={10} w="100%" flexDir="column" justifyContent="center">
       {isIgnored ? (
