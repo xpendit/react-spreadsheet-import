@@ -18,7 +18,6 @@ import type { Translations } from "../../../translationsRSIProps"
 import { MatchColumnSelect } from "../../../components/Selects/MatchColumnSelect"
 import { SubMatchingSelect } from "./SubMatchingSelect"
 import type { Styles } from "./ColumnGrid"
-import { setSubColumn } from '../utils/setSubColumn'
 
 const getAccordionTitle = <T extends string>(fields: Fields<T>, column: Column<T>, translations: Translations) => {
   const fieldLabel = fields.find((field) => "value" in column && field.key === column.value)!.label
@@ -39,8 +38,9 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
   const isIgnored = column.type === ColumnType.ignored
   const isChecked =
     column.type === ColumnType.matched ||
-    column.type === ColumnType.matchedCheckbox
-  const isSelect = false
+    column.type === ColumnType.matchedCheckbox ||
+    column.type === ColumnType.matchedSelectOptions
+  const isSelect = "matchedOptions" in column
   const selectOptions = fields.map(({ label, key }) => ({ value: key, label }))
   const selectValue = selectOptions.find(({ value }) => "value" in column && column.value === value)
 
@@ -60,10 +60,10 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
                 name={column.header}
               />
             </Box>
-            {column.type !== ColumnType.matchedCheckbox && (
-            <MatchIcon isChecked={isChecked} />)}
+            {column.type !== ColumnType.matchedSelectOptions &&
+            <MatchIcon isChecked={isChecked} />}
           </Flex>
-          {isSelect && (
+          {false && (
             <Flex width="100%">
               <Accordion allowMultiple width="100%">
                 <AccordionItem border="none" py={1}>
@@ -81,11 +81,11 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
                       </Text>
                     </Box>
                   </AccordionButton>
-                  <AccordionPanel pb={4} pr={3} display="flex" flexDir="column">
+                  {/* <AccordionPanel pb={4} pr={3} display="flex" flexDir="column">
                     {column.matchedOptions.map((option) => (
                       <SubMatchingSelect option={option} column={column} onSubChange={onSubChange} key={option.entry} />
                     ))}
-                  </AccordionPanel>
+                  </AccordionPanel> */}
                 </AccordionItem>
               </Accordion>
             </Flex>
