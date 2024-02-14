@@ -12,7 +12,6 @@ import type { Field, RawData } from "../../types"
 import { getMatchedColumns } from "./utils/getMatchedColumns"
 import { UnmatchedFieldsAlert } from "../../components/Alerts/UnmatchedFieldsAlert"
 import { findUnmatchedRequiredFields } from "./utils/findUnmatchedRequiredFields"
-import { getFieldOptions } from './utils/getFieldOptions'
 
 export type MatchColumnsProps<T extends string> = {
   data: RawData[]
@@ -132,7 +131,6 @@ export const MatchColumnsStep = <T extends string>({
 
   const onSubChange = useCallback(
     (value: string, columnIndex: number, entry: string) => {
-      console.log('onSubChange', value, columnIndex, entry)
       setColumns(
         columns.map((column, index) =>
           columnIndex === index && "matchedOptions" in column ? setSubColumn(column, entry, value) : column,
@@ -159,22 +157,6 @@ export const MatchColumnsStep = <T extends string>({
     await onContinue(normalizeTableData(columns, data, fields), data, columns)
     setIsLoading(false)
   }, [onContinue, columns, data, fields])
-
-  // useEffect(() => {
-  //   () => {
-  //     console.log('columns', columns)
-  //     columns.map((column) => {
-  //       if (column.type === ColumnType.matchedSelect) {
-  //         const options = getFieldOptions(fields, column.value)
-  //         const value = options.find((o) => o.value === column.matchedOptions[0].entry)
-  //         onSubChange(value?.value as T, column.index, column.matchedOptions[0].entry!)
-  //       }
-  //     })
-  //   }},
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [],
-  // )
 
   useEffect(
     () => {
