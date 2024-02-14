@@ -39,8 +39,7 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
   const isIgnored = column.type === ColumnType.ignored
   const isChecked =
     column.type === ColumnType.matched ||
-    column.type === ColumnType.matchedCheckbox ||
-    column.type === ColumnType.matchedSelectOptions ? true : true
+    column.type === ColumnType.matchedCheckbox
   const isSelect = false
   const selectOptions = fields.map(({ label, key }) => ({ value: key, label }))
   const selectValue = selectOptions.find(({ value }) => "value" in column && column.value === value)
@@ -61,7 +60,8 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
                 name={column.header}
               />
             </Box>
-            <MatchIcon isChecked={isChecked} />
+            {column.type !== ColumnType.matchedCheckbox && (
+            <MatchIcon isChecked={isChecked} />)}
           </Flex>
           {isSelect && (
             <Flex width="100%">
