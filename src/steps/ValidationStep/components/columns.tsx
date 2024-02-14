@@ -69,6 +69,8 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
 
         switch (column.fieldType.type) {
           case "select":
+            console.log(column.fieldType.options)
+            console.log(row)
             component = (
               <TableSelect
                 value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
