@@ -168,19 +168,6 @@ export const MatchColumnsStep = <T extends string>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
-  useEffect(
-    () => {
-      console.log('columns', columns)
-      columns.map((column) => {
-        if (column.type === ColumnType.matchedSelect) {
-          const options = getFieldOptions(fields, column.value)
-          const value = options.find((o) => o.value === column.matchedOptions[0].entry)
-          onSubChange(value?.value as T, column.index, column.matchedOptions[0].entry!)
-        }
-      })
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
 
   return (
     <>
