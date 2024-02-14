@@ -146,7 +146,7 @@ export const MatchColumnsStep = <T extends string>({
       setShowUnmatchedFieldsAlert(true)
     } else {
       setIsLoading(true)
-      // await onContinue(normalizeTableData(columns, data, fields), data, columns)
+      await onContinue(normalizeTableData(columns, data, fields), data, columns)
       setIsLoading(false)
     }
   }, [unmatchedRequiredFields.length, onContinue, columns, data, fields])
