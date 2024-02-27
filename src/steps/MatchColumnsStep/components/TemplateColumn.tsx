@@ -62,7 +62,7 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
             </Box>
             <MatchIcon isChecked={isChecked} />
           </Flex>
-          {false && (
+          {/* {false && (
             <Flex width="100%">
               <Accordion allowMultiple width="100%">
                 <AccordionItem border="none" py={1}>
@@ -79,16 +79,16 @@ export const TemplateColumn = <T extends string>({ column, onChange, onSubChange
                         {getAccordionTitle<T>(fields, column, translations)}
                       </Text>
                     </Box>
-                  </AccordionButton>
+                  </AccordionButton> */}
                   {/* <AccordionPanel pb={4} pr={3} display="flex" flexDir="column">
                     {column.matchedOptions.map((option) => (
                       <SubMatchingSelect option={option} column={column} onSubChange={onSubChange} key={option.entry} />
                     ))}
                   </AccordionPanel> */}
-                </AccordionItem>
-              </Accordion>
-            </Flex>
-          )}
+                {/* </AccordionItem> */}
+              {/* </Accordion> */}
+            {/* </Flex> */}
+          {/* )} */}
         </>
       )}
     </Flex>
