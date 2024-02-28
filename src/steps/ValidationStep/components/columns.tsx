@@ -64,7 +64,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
           )}
         </Box>
       ),
-      editable: column.fieldType.type === 'Checkbox',
+      editable: column.fieldType.type === 'checkbox',
       editor: ({ row, onRowChange, onClose }) => {
         let component
         switch (column.fieldType.type) {
