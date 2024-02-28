@@ -125,17 +125,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
               </Box>
             )
             break
-            case "select":
-              component = (
-                <TableSelect
-                  value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
-                  onChange={(value) => {
-                    onRowChange({ ...row, [column.key]: value?.value }, true)
-                  }}
-                  options={column.fieldType.options}
-                />
-              )
-              break
           default:
             component = (
               <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
