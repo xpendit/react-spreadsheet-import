@@ -113,7 +113,7 @@ export const ValidationStep = <T extends string>({ initialData, file, onBack }: 
       setShowSubmitAlert(true)
     }
   }
-
+  console.log("ValidationStep", { data, tableData, columns, selectedRows, filterByErrors, showSubmitAlert })
   return (
     <>
       <SubmitDataAlert isOpen={showSubmitAlert} onClose={() => setShowSubmitAlert(false)} onConfirm={submitData} />
