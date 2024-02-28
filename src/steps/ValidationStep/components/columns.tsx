@@ -63,12 +63,30 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
           )}
         </Box>
       ),
-      editable: column.fieldType.type !== 'checkbox',
+      editable: column.fieldType.type !== "checkbox",
       editor: ({ row, onRowChange, onClose }) => {
         let component
 
         switch (column.fieldType.type) {
-
+          case "checkbox":
+            component = (
+              <Box
+                display="flex"
+                alignItems="center"
+                height="100%"
+                onClick={(event) => {
+                  event.stopPropagation()
+                }}
+              >
+                <Switch
+                  isChecked={row[column.key] as boolean}
+                  onChange={() => {
+                    onRowChange({ ...row, [column.key]: !row[column.key as T] })
+                  }}
+                />
+              </Box>
+            )
+            break
           case "select":
             component = (
               <TableSelect
@@ -104,42 +122,42 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
         editOnClick: true,
       },
       formatter: ({ row, onRowChange }) => {
-        let component = null
+        let component
 
-        // switch (column.fieldType.type) {
-        //   case "checkbox":
-        //     component = (
-        //       <Box
-        //         display="flex"
-        //         alignItems="center"
-        //         height="100%"
-        //         onClick={(event) => {
-        //           event.stopPropagation()
-        //         }}
-        //       >
-        //         <Switch
-        //           isChecked={row[column.key] as boolean}
-        //           onChange={() => {
-        //             onRowChange({ ...row, [column.key]: !row[column.key as T] })
-        //           }}
-        //         />
-        //       </Box>
-        //     )
-        //     break
-        //   case "select":
-        //     component = (
-        //       <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-        //         {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
-        //       </Box>
-        //     )
-        //     break
-        //   default:
-        //     component = (
-        //       <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-        //         {row[column.key as T]}
-        //       </Box>
-        //     )
-        // }
+        switch (column.fieldType.type) {
+          case "checkbox":
+            component = (
+              <Box
+                display="flex"
+                alignItems="center"
+                height="100%"
+                onClick={(event) => {
+                  event.stopPropagation()
+                }}
+              >
+                <Switch
+                  isChecked={row[column.key] as boolean}
+                  onChange={() => {
+                    onRowChange({ ...row, [column.key]: !row[column.key as T] })
+                  }}
+                />
+              </Box>
+            )
+            break
+          case "select":
+            component = (
+              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
+              </Box>
+            )
+            break
+          default:
+            component = (
+              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+                {row[column.key as T]}
+              </Box>
+            )
+        }
 
         if (row.__errors?.[column.key]) {
           return (
