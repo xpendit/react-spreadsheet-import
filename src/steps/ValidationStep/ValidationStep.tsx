@@ -9,7 +9,7 @@ import { Table } from "../../components/Table"
 import { SubmitDataAlert } from "../../components/Alerts/SubmitDataAlert"
 import type { Data } from "../../types"
 import type { themeOverrides } from "../../theme"
-import type { RowsChangeData } from "react-data-grid"
+import type { Column, RowsChangeData } from "react-data-grid"
 
 type Props<T extends string> = {
   initialData: (Data<T> & Meta)[]
@@ -62,10 +62,11 @@ export const ValidationStep = <T extends string>({ initialData, file, onBack }: 
     },
     [data, updateData],
   )
-  console.log('fields', fields)
+  fields.map((column) => {
+    console.log(column.fieldType)
+    console.log("fieldtype is equal to select: ", column.fieldType.type === "select")
+  })
   const columns = useMemo(() => generateColumns(fields), [fields])
-  console.log('columns', columns)
-  console.log('data', data)
   const tableData = useMemo(() => {
     if (filterByErrors) {
       return data.filter((value) => {

@@ -144,19 +144,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
               </Box>
             )
             break
-          case "select":
-            component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
-              </Box>
-            )
-            break
-          default:
-            component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {row[column.key as T]}
-              </Box>
-            )
         }
 
         if (row.__errors?.[column.key]) {
