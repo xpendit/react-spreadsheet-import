@@ -63,11 +63,30 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
           )}
         </Box>
       ),
-      editable: column.fieldType.type !== "checkbox",
+      editable: true,
       editor: ({ row, onRowChange, onClose }) => {
         let component
 
         switch (column.fieldType.type) {
+          case "checkbox":
+            component = (
+              <Box
+                display="flex"
+                alignItems="center"
+                height="100%"
+                onClick={(event) => {
+                  event.stopPropagation()
+                }}
+              >
+                <Switch
+                  isChecked={row[column.key] as boolean}
+                  onChange={() => {
+                    onRowChange({ ...row, [column.key]: !row[column.key as T] })
+                  }}
+                />
+              </Box>
+            )
+            break
           case "select":
             component = (
               <TableSelect
