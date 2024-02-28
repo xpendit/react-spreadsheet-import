@@ -127,7 +127,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
             break
           case "select":
             component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
                 <Select
                   value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
                   onChange={(event) => {
@@ -137,7 +136,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                   variant="standard"
                   size="small"
                 />
-              </Box>
             )
             break
           default:
