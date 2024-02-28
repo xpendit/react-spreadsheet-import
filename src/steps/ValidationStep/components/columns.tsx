@@ -102,7 +102,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editorOptions: {
         editOnClick: true,
       },
-      formatter: ({ row, onRowChange, onClose }) => {
+      formatter: ({ row, onRowChange }) => {
         let component
 
         switch (column.fieldType.type) {
@@ -137,10 +137,10 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     onRowChange({ ...row, [column.key]: event.target.value })
                   }}
-                  onBlur={() => onClose(true)}
                 />
               </Box>
             )
+
             break
           default:
             component = (
