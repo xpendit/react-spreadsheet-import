@@ -127,6 +127,18 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
             break
           case "select":
             component = (
+              <TableSelect
+                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+                onChange={(value) => {
+                  onRowChange({ ...row, [column.key]: value?.value }, true)
+                }}
+                options={column.fieldType.options}
+              />
+            )
+
+            break
+          default:
+            component = (
               <Box paddingInlineStart="0.5rem">
                 <Input
                   ref={autoFocusAndSelect}
@@ -138,14 +150,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                     onRowChange({ ...row, [column.key]: event.target.value })
                   }}
                 />
-              </Box>
-            )
-
-            break
-          default:
-            component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {row[column.key as T]}
               </Box>
             )
         }
