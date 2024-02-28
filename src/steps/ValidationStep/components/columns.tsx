@@ -5,7 +5,6 @@ import type { ChangeEvent } from "react"
 import type { Meta } from "../types"
 import { CgInfo } from "react-icons/cg"
 import { TableSelect } from "../../../components/Selects/TableSelect"
-import { Select } from '@mui/material'
 
 const SELECT_COLUMN_KEY = "select-row"
 
@@ -67,7 +66,9 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editable: column.fieldType.type === 'checkbox',
       editor: ({ row, onRowChange, onClose }) => {
         let component
+
         switch (column.fieldType.type) {
+
           case "select":
             component = (
               <TableSelect
@@ -127,15 +128,9 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
             break
           case "select":
             component = (
-                <Select
-                  value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
-                  onChange={(event) => {
-                    onRowChange({ ...row, [column.key]: event.target.value }, true)
-                  }}
-                  options={column.fieldType.options}
-                  variant="standard"
-                  size="small"
-                />
+              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
+              </Box>
             )
             break
           default:
