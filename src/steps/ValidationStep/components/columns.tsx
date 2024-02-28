@@ -102,7 +102,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editorOptions: {
         editOnClick: true,
       },
-      formatter: ({ row, onRowChange }) => {
+      formatter: ({ row, onRowChange, onClose }) => {
         let component
 
         switch (column.fieldType.type) {
@@ -121,6 +121,23 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                   onChange={() => {
                     onRowChange({ ...row, [column.key]: !row[column.key as T] })
                   }}
+                />
+              </Box>
+            )
+            break
+          case "select":
+            component = (
+              <Box paddingInlineStart="0.5rem">
+                <Input
+                  ref={autoFocusAndSelect}
+                  variant="unstyled"
+                  autoFocus
+                  size="small"
+                  value={row[column.key] as string}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    onRowChange({ ...row, [column.key]: event.target.value })
+                  }}
+                  onBlur={() => onClose(true)}
                 />
               </Box>
             )
