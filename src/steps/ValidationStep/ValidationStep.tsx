@@ -63,8 +63,9 @@ export const ValidationStep = <T extends string>({ initialData, file, onBack }: 
     [data, updateData],
   )
 
+  console.log("fields", fields)
   const columns = useMemo(() => generateColumns(fields), [fields])
-
+  console.log("columns", columns)
   const tableData = useMemo(() => {
     if (filterByErrors) {
       return data.filter((value) => {
@@ -113,7 +114,7 @@ export const ValidationStep = <T extends string>({ initialData, file, onBack }: 
       setShowSubmitAlert(true)
     }
   }
-  console.log("ValidationStep", { data, tableData, columns, selectedRows, filterByErrors, showSubmitAlert })
+
   return (
     <>
       <SubmitDataAlert isOpen={showSubmitAlert} onClose={() => setShowSubmitAlert(false)} onConfirm={submitData} />
