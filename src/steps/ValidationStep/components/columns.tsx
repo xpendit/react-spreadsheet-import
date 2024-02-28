@@ -4,7 +4,7 @@ import type { Data, Fields } from "../../../types"
 import type { ChangeEvent } from "react"
 import type { Meta } from "../types"
 import { CgInfo } from "react-icons/cg"
-import { TableSelect, TableSelect2 } from "../../../components/Selects/TableSelect"
+import { TableSelect } from "../../../components/Selects/TableSelect"
 
 const SELECT_COLUMN_KEY = "select-row"
 
@@ -125,32 +125,22 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
               </Box>
             )
             break
-          case "select":
+          case "selected":
             component = (
-              <TableSelect2
+              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
+              </Box>
+            )
+            break
+          default:
+            component = (
+              <TableSelect
                 value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
                 onChange={(value) => {
                   onRowChange({ ...row, [column.key]: value?.value }, true)
                 }}
                 options={column.fieldType.options}
               />
-            )
-
-            break
-          default:
-            component = (
-              <Box paddingInlineStart="0.5rem">
-                <Input
-                  ref={autoFocusAndSelect}
-                  variant="unstyled"
-                  autoFocus
-                  size="small"
-                  value={row[column.key] as string}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    onRowChange({ ...row, [column.key]: event.target.value })
-                  }}
-                />
-              </Box>
             )
         }
 

@@ -63,9 +63,7 @@ export const ValidationStep = <T extends string>({ initialData, file, onBack }: 
     [data, updateData],
   )
 
-  console.log("fields", fields)
   const columns = useMemo(() => generateColumns(fields), [fields])
-  console.log("columns", columns)
   const tableData = useMemo(() => {
     if (filterByErrors) {
       return data.filter((value) => {
