@@ -31,3 +31,21 @@ export const TableSelect = ({ onChange, value, options }: Props) => {
     />
   )
 }
+
+export const TableSelect2 = ({ onChange, value, options }: Props) => {
+  return (
+    <Select<SelectOption, false>
+      autoFocus
+      useBasicStyles
+      size="sm"
+      value={value}
+      onChange={onChange}
+      placeholder=" "
+      closeMenuOnScroll
+      menuPosition="fixed"
+      menuIsOpen
+      menuPortalTarget={document.getElementById(rootId)}
+      options={options}
+    />
+  )
+}

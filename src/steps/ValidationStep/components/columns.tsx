@@ -4,7 +4,7 @@ import type { Data, Fields } from "../../../types"
 import type { ChangeEvent } from "react"
 import type { Meta } from "../types"
 import { CgInfo } from "react-icons/cg"
-import { TableSelect } from "../../../components/Selects/TableSelect"
+import { TableSelect, TableSelect2 } from "../../../components/Selects/TableSelect"
 
 const SELECT_COLUMN_KEY = "select-row"
 
@@ -127,7 +127,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
             break
           case "select":
             component = (
-              <TableSelect
+              <TableSelect2
                 value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
                 onChange={(value) => {
                   onRowChange({ ...row, [column.key]: value?.value }, true)
