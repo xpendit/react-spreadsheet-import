@@ -104,7 +104,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
         editOnClick: true,
       },
       formatter: ({ row, onRowChange }) => {
-        let component
+        let component = null
 
         // switch (column.fieldType.type) {
         //   case "checkbox":
