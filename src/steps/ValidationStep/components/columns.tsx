@@ -5,7 +5,6 @@ import type { ChangeEvent } from "react"
 import type { Meta } from "../types"
 import { CgInfo } from "react-icons/cg"
 import { TableSelect } from "../../../components/Selects/TableSelect"
-
 const SELECT_COLUMN_KEY = "select-row"
 
 function autoFocusAndSelect(input: HTMLInputElement | null) {
@@ -125,13 +124,13 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
               </Box>
             )
             break
-          case "input":
-            component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
-              </Box>
-            )
-            break
+          // case Input:
+          //   component = (
+          //     <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+          //       {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
+          //     </Box>
+          //   )
+          //   break
           default:
             component = (
               <TableSelect
