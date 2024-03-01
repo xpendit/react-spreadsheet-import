@@ -67,6 +67,7 @@ export const ValidationStep = <T extends string>({ initialData, file, onBack }: 
     console.log("fieldtype is equal to select: ", column.fieldType.type === "select")
   })
   const columns = useMemo(() => generateColumns(fields), [fields])
+  console.log(columns);
   const tableData = useMemo(() => {
     if (filterByErrors) {
       return data.filter((value) => {
