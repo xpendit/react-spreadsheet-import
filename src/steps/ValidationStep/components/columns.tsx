@@ -117,48 +117,48 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       },
       formatter: ({ row, onRowChange }) => {
         let component
-
         switch (column.fieldType.type) {
-          case "checkbox":
-            component = (
-              <Box
-                display="flex"
-                alignItems="center"
-                height="100%"
-                onClick={(event) => {
-                  event.stopPropagation()
-                }}
-              >
-                <Switch
-                  isChecked={row[column.key] as boolean}
-                  onChange={() => {
-                    onRowChange({ ...row, [column.key]: !row[column.key as T] })
-                  }}
-                />
-              </Box>
-            )
-            break
-          case "select":
-            component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
-              </Box>
-            )
-            break
+          // case "checkbox":
+          //   component = (
+          //     <Box
+          //       display="flex"
+          //       alignItems="center"
+          //       height="100%"
+          //       onClick={(event) => {
+          //         event.stopPropagation()
+          //       }}
+          //     >
+          //       <Switch
+          //         isChecked={row[column.key] as boolean}
+          //         onChange={() => {
+          //           onRowChange({ ...row, [column.key]: !row[column.key as T] })
+          //         }}
+          //       />
+          //     </Box>
+          //   )
+          //   break
+          // case "select":
+          //   component = (
+          //     <TableSelect
+          //       value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+          //       onChange={(value) => {
+          //         onRowChange({ ...row, [column.key]: value?.value }, true)
+          //       }}
+          //       options={column.fieldType.options}
+          //     />
+          //   )
+          //   break
           default:
             component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {row[column.key as T]}
-              </Box>
+              <div style={{ border: "1px solid red" }}>
+                <select>
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </div>
             )
-        }
-
-        if (row.__errors?.[column.key]) {
-          return (
-            <Tooltip placement="top" hasArrow label={row.__errors?.[column.key]?.message}>
-              {component}
-            </Tooltip>
-          )
         }
 
         return component
