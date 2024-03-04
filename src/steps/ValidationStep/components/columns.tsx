@@ -102,46 +102,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editorOptions: {
         editOnClick: true,
       },
-      formatter: ({ row, onRowChange }) => {
-        let component
-        switch (column.fieldType.type) {
-          // case "select":
-          //   component = (
-          //     <TableSelect
-          //       value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
-          //       onChange={(value) => {
-          //         onRowChange({ ...row, [column.key]: value?.value })
-          //       }}
-          //       options={column.fieldType.options}
-          //     />
-          //   )
-          //   break
-          default:
-            component = (
-              <Box paddingInlineStart="0.5rem">
-                <Input
-                  ref={autoFocusAndSelect}
-                  variant="unstyled"
-                  autoFocus
-                  size="small"
-                  value={row[column.key] as string}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    onRowChange({ ...row, [column.key]: event.target.value })
-                  }}
-                />
-              </Box>
-            )
-        }
-        if (row.__errors?.[column.key]) {
-          return (
-            <Tooltip placement="top" hasArrow label={row.__errors?.[column.key]?.message}>
-              {component}
-            </Tooltip>
-          )
-        }
-
-        return component
-      },
       cellClass: (row: Meta) => {
         switch (row.__errors?.[column.key]?.level) {
           case "error":
