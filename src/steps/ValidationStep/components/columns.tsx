@@ -66,47 +66,38 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editable: column.fieldType.type !== "checkbox",
       editor: ({ row, onRowChange, onClose }) => {
         let component
+        console.log("column.fieldType.type editor", column.fieldType.type)
+        console.log("column.fieldType.options editor", column.fieldType.type === "select")
         switch (column.fieldType.type) {
-          // case "checkbox":
-          //   component = (
-          //     <Box
-          //       display="flex"
-          //       alignItems="center"
-          //       height="100%"
-          //       onClick={(event) => {
-          //         event.stopPropagation()
-          //       }}
-          //     >
-          //       <Switch
-          //         isChecked={row[column.key] as boolean}
-          //         onChange={() => {
-          //           onRowChange({ ...row, [column.key]: !row[column.key as T] })
-          //         }}
-          //       />
-          //     </Box>
-          //   )
-          //   break
-          // case "select":
-          //   component = (
-          //     <TableSelect
-          //       value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
-          //       onChange={(value) => {
-          //         onRowChange({ ...row, [column.key]: value?.value }, true)
-          //       }}
-          //       options={column.fieldType.options}
-          //     />
-          //   )
-          //   break
+          case "select":
+            console.log("column.fieldType.options editor", column.fieldType.options)
+            console.log("column editor", column)
+            console.log("row[column.key]editor", row[column.key])
+            component = (
+              <TableSelect
+                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+                onChange={(value) => {
+                  onRowChange({ ...row, [column.key]: value?.value }, true)
+                }}
+                options={column.fieldType.options}
+              />
+            )
+            break
           default:
             component = (
-              <div style={{ border: "1px solid red" }}>
-                <select>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
-                </select>
-              </div>
+              <Box paddingInlineStart="0.5rem">
+                <Input
+                  ref={autoFocusAndSelect}
+                  variant="unstyled"
+                  autoFocus
+                  size="small"
+                  value={row[column.key] as string}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    onRowChange({ ...row, [column.key]: event.target.value })
+                  }}
+                  onBlur={() => onClose(true)}
+                />
+              </Box>
             )
         }
 
@@ -117,48 +108,52 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       },
       formatter: ({ row, onRowChange }) => {
         let component
+        console.log("column.fieldType.type formatter", column.fieldType.type)
+        console.log("column.fieldType.options formatter", column.fieldType.type === "select")
         switch (column.fieldType.type) {
-          // case "checkbox":
-          //   component = (
-          //     <Box
-          //       display="flex"
-          //       alignItems="center"
-          //       height="100%"
-          //       onClick={(event) => {
-          //         event.stopPropagation()
-          //       }}
-          //     >
-          //       <Switch
-          //         isChecked={row[column.key] as boolean}
-          //         onChange={() => {
-          //           onRowChange({ ...row, [column.key]: !row[column.key as T] })
-          //         }}
-          //       />
-          //     </Box>
-          //   )
-          //   break
-          // case "select":
-          //   component = (
-          //     <TableSelect
-          //       value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
-          //       onChange={(value) => {
-          //         onRowChange({ ...row, [column.key]: value?.value }, true)
-          //       }}
-          //       options={column.fieldType.options}
-          //     />
-          //   )
-          //   break
+          case "checkbox":
+            component = (
+              <Box
+                display="flex"
+                alignItems="center"
+                height="100%"
+                onClick={(event) => {
+                  event.stopPropagation()
+                }}
+              >
+                <Switch
+                  isChecked={row[column.key] as boolean}
+                  onChange={() => {
+                    onRowChange({ ...row, [column.key]: !row[column.key as T] })
+                  }}
+                />
+              </Box>
+            )
+            break
+          case "select":
+            console.log("column.fieldType.options formatter", column.fieldType.options)
+            console.log("column formatter", column)
+            console.log("row[column.key] formatter", row[column.key])
+            component = (
+              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
+              </Box>
+            )
+            break
           default:
             component = (
-              <div style={{ border: "1px solid red" }}>
-                <select>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
-                </select>
-              </div>
+              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
+                {row[column.key as T]}
+              </Box>
             )
+        }
+
+        if (row.__errors?.[column.key]) {
+          return (
+            <Tooltip placement="top" hasArrow label={row.__errors?.[column.key]?.message}>
+              {component}
+            </Tooltip>
+          )
         }
 
         return component
