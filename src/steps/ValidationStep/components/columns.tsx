@@ -69,9 +69,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
 
         switch (column.fieldType.type) {
           case "select":
-            console.log("column.fieldType.options", column.fieldType.options)
-            console.log("column", column)
-            console.log("row[column.key]", row[column.key])
             component = (
               <TableSelect
                 value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
@@ -108,20 +105,17 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       formatter: ({ row, onRowChange }) => {
         let component
         switch (column.fieldType.type) {
-          case "select":
-            console.log("column.fieldType.options", column.fieldType.options)
-            console.log("column", column)
-            console.log("row[column.key]", row[column.key])
-            component = (
-              <TableSelect
-                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
-                onChange={(value) => {
-                  onRowChange({ ...row, [column.key]: value?.value }, true)
-                }}
-                options={column.fieldType.options}
-              />
-            )
-            break
+          // case "select":
+          //   component = (
+          //     <TableSelect
+          //       value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+          //       onChange={(value) => {
+          //         onRowChange({ ...row, [column.key]: value?.value })
+          //       }}
+          //       options={column.fieldType.options}
+          //     />
+          //   )
+          //   break
           default:
             component = (
               <Box paddingInlineStart="0.5rem">
