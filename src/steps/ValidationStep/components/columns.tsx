@@ -24,7 +24,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
     sortable: false,
     frozen: true,
     cellClass: "rdg-checkbox",
-    editor: (props) => {
+    formatter: (props) => {
       // eslint-disable-next-line  react-hooks/rules-of-hooks
       const [isRowSelected, onRowSelectionChange] = useRowSelection()
       return (
