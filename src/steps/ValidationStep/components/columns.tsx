@@ -70,7 +70,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
           case "select":
             component = (
               <TableSelect
-                // value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
                 onChange={(value) => {
                   onRowChange({ ...row, [column.key]: value?.value }, true)
                 }}
@@ -86,7 +86,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                   variant="unstyled"
                   autoFocus
                   size="small"
-                  // value={row[column.key] as string}s
+                  value={row[column.key] as string}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     onRowChange({ ...row, [column.key]: event.target.value })
                   }}
@@ -101,7 +101,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editorOptions: {
         editOnClick: true,
       },
-      formatter: ({ row, onRowChange }) => {
+      formatter: ({ row, onRowChange, onClose }) => {
         let component
         switch (column.fieldType.type) {
           case "checkbox":
@@ -130,13 +130,24 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                   onRowChange({ ...row, [column.key]: value?.value })
                 }}
                 options={column.fieldType.options}
+                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
               />
             )
             break
           default:
             component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {row[column.key as T]}
+              <Box paddingInlineStart="0.5rem">
+                <Input
+                  ref={autoFocusAndSelect}
+                  variant="unstyled"
+                  autoFocus
+                  size="small"
+                  value={row[column.key] as string}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    onRowChange({ ...row, [column.key]: event.target.value })
+                  }}
+                  onBlur={() => onClose(true)}
+                />
               </Box>
             )
         }
