@@ -66,16 +66,11 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       editable: column.fieldType.type !== "checkbox",
       editor: ({ row, onRowChange, onClose }) => {
         let component
-        console.log("column.fieldType.type editor", column.fieldType.type)
-        console.log("column.fieldType.options editor", column.fieldType.type === "select")
         switch (column.fieldType.type) {
           case "select":
-            console.log("column.fieldType.options editor", column.fieldType.options)
-            console.log("column editor", column)
-            console.log("row[column.key]editor", row[column.key])
             component = (
               <TableSelect
-                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+                // value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
                 onChange={(value) => {
                   onRowChange({ ...row, [column.key]: value?.value }, true)
                 }}
@@ -91,7 +86,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
                   variant="unstyled"
                   autoFocus
                   size="small"
-                  value={row[column.key] as string}
+                  // value={row[column.key] as string}s
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     onRowChange({ ...row, [column.key]: event.target.value })
                   }}
@@ -108,8 +103,6 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       },
       formatter: ({ row, onRowChange }) => {
         let component
-        console.log("column.fieldType.type formatter", column.fieldType.type)
-        console.log("column.fieldType.options formatter", column.fieldType.type === "select")
         switch (column.fieldType.type) {
           case "checkbox":
             component = (
@@ -131,13 +124,13 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
             )
             break
           case "select":
-            console.log("column.fieldType.options formatter", column.fieldType.options)
-            console.log("column formatter", column)
-            console.log("row[column.key] formatter", row[column.key])
             component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
-              </Box>
+              <TableSelect
+                onChange={(value) => {
+                  onRowChange({ ...row, [column.key]: value?.value })
+                }}
+                options={column.fieldType.options}
+              />
             )
             break
           default:
