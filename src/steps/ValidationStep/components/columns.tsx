@@ -116,7 +116,7 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
               <TableSelect
                 value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
                 onChange={(value) => {
-                  onRowChange({ ...row, [column.key]: value?.value })
+                  onRowChange({ ...row, [column.key]: value?.value }, true)
                 }}
                 options={column.fieldType.options}
               />
