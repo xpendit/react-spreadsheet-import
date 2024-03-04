@@ -108,40 +108,36 @@ export const generateColumns = <T extends string>(fields: Fields<T>): Column<Dat
       formatter: ({ row, onRowChange }) => {
         let component
         switch (column.fieldType.type) {
-          case "checkbox":
-            component = (
-              <Box
-                display="flex"
-                alignItems="center"
-                height="100%"
-                onClick={(event) => {
-                  event.stopPropagation()
-                }}
-              >
-                <Switch
-                  isChecked={row[column.key] as boolean}
-                  onChange={() => {
-                    onRowChange({ ...row, [column.key]: !row[column.key as T] })
-                  }}
-                />
-              </Box>
-            )
-            break
           case "select":
+            console.log("column.fieldType.options", column.fieldType.options)
+            console.log("column", column)
+            console.log("row[column.key]", row[column.key])
             component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {column.fieldType.options.find((option) => option.value === row[column.key as T])?.label || null}
-              </Box>
+              <TableSelect
+                value={column.fieldType.options.find((option) => option.value === (row[column.key] as string))}
+                onChange={(value) => {
+                  onRowChange({ ...row, [column.key]: value?.value })
+                }}
+                options={column.fieldType.options}
+              />
             )
             break
           default:
             component = (
-              <Box minWidth="100%" minHeight="100%" overflow="hidden" textOverflow="ellipsis">
-                {row[column.key as T]}
+              <Box paddingInlineStart="0.5rem">
+                <Input
+                  ref={autoFocusAndSelect}
+                  variant="unstyled"
+                  autoFocus
+                  size="small"
+                  value={row[column.key] as string}
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    onRowChange({ ...row, [column.key]: event.target.value })
+                  }}
+                />
               </Box>
             )
         }
-
         if (row.__errors?.[column.key]) {
           return (
             <Tooltip placement="top" hasArrow label={row.__errors?.[column.key]?.message}>
